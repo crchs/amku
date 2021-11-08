@@ -1,0 +1,5 @@
+<mat-grid-list cols="3" [gutterSize]="'1rem'">
+  <mat-grid-tile class="recipe-list-element__container" *ngFor="let recipe of recipes; index as i">
+    <recipe-list-element class="recipe-list-element" [recipe]="recipe" [routerLink]="['/przepis', recipe.id]"></recipe-list-element>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -1,0 +1,8 @@
+
+<h1 *ngIf="auth.user | async">Welcome {{ (auth.user | async)?.email }}!</h1>
+<button *ngIf="auth.user | async" mat-flat-button color="accent" (click)="logout()"> Zlogałtuj się</button>
+
+<div  *ngIf="!(auth.user | async)">
+  <p>Please login.</p>
+  <button mat-button (click)="login()">Zaloguj się</button>
+</div>
