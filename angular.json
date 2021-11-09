@@ -111,7 +111,7 @@
             "ssr": false,
             "browserTarget": "amku:build:production",
             "firebaseProject": "amku-77b5b",
-            "firebaseHostingSite": "amku-am"
+            "firebaseHostingSite": "amku-fit"
           }
         }
       }
