@@ -1,0 +1,8 @@
+<div class="admin-logout__container">
+    <h3>
+        Jesteś zalogowana {{ (auth.user | async)?.email }}!
+    </h3>
+    <button *ngIf="auth.user | async" mat-flat-button color="accent" (click)="logout()">
+        Wyloguj się
+    </button>
+</div>

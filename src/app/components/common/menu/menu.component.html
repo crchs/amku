@@ -1,13 +1,18 @@
 <mat-toolbar color="primary" class="menu__container">
-    <button mat-icon-button aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
+  <button mat-icon-button>
+    <mat-icon color="accent">menu</mat-icon>
+  </button>
+  <span class="menu__logo-link" [routerLink]="'/'">AMKU</span>
+  <div>
+    <button mat-icon-button *ngIf="auth.user | async" [routerLink]="'/add-recipe'">
+      <mat-icon color="accent">library_add</mat-icon>
     </button>
-    <span>AMKU</span>
-    <!-- <span></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
+    <button mat-icon-button *ngIf="auth.user | async" [routerLink]="'/admin'">
+      <mat-icon color="accent">fingerprint</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
-    </button> -->
-  </mat-toolbar>
+    <button mat-icon-button *ngIf="auth.user | async" (click)="logout()">
+      <mat-icon color="accent">logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+

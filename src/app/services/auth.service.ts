@@ -12,19 +12,17 @@ export class AuthService {
     this.user = firebaseAuth.authState;
   }
 
-  login(email: string, password: string) {
-    this.firebaseAuth
+  login(email: string, password: string): any {
+    return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
-      .then(value => {
-        console.log('Nice, it worked!');
-      })
       .catch(err => {
-        console.log('Something went wrong:',err.message);
+        console.log('Something went wrong:', err.message);
+        return err;
       });
   }
 
   logout() {
-    this.firebaseAuth
+    return this.firebaseAuth
       .signOut();
   }
 }

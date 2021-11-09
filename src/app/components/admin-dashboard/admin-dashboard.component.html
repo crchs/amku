@@ -1,2 +1,3 @@
-<p>admin-dashboard works!</p>
-<admin-login></admin-login>
+<h2>Panel Admina</h2>
+<admin-login *ngIf="!(auth.user | async)"></admin-login>
+<admin-logout *ngIf="auth.user | async"></admin-logout>

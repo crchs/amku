@@ -15,7 +15,7 @@ export class AdminGuard implements CanActivate {
 
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
+  canActivate(): Observable<boolean | UrlTree> {
 
     return this.auth.user.pipe(
       switchMap((isLoggedIn) => {

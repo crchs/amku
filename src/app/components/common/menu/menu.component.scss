@@ -1,6 +1,8 @@
-// .menu__container {
-//     position: fixed;
-//     top: 0;
-//     width: 100vw;
-//     overflow: hidden;
-// }
+.menu__container {
+    justify-content: space-between;
+}
+
+.menu__logo-link {
+    cursor: pointer;
+    font-size: xx-large;
+}
