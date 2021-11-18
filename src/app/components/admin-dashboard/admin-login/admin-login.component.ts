@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';;
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AdminLoginComponent {
   isLoading: boolean = true;
+  serviceError: string = '';
 
   loginForm = new FormGroup({
     email: new FormControl('',
@@ -28,6 +29,11 @@ export class AdminLoginComponent {
     this.auth.login(this.loginForm.value.email, this.loginForm.value.password)
       .then(() => {
         this.loginForm.reset()
+      })
+      .catch((error: Error) => {
+        this.serviceError = JSON.parse(JSON.stringify(error)).code;
+      })
+      .finally(() => {
         this.isLoading = false;
       })
   }

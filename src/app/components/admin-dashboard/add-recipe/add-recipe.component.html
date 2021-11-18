@@ -1,8 +1,40 @@
-<p>add-recipe works!</p>
-<div>
-    <form>
-        <div>
-            
-        </div>
-    </form>
-</div>
+<h2>Dodawanie przepisu</h2>
+<form class="recipe-form__container" [formGroup]="recipeForm"
+  (ngSubmit)="addRecipe()">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Tytuł</mat-label>
+    <input matInput formControlName="title">
+    <mat-error *ngIf="recipeForm.get('title')?.errors?.required">
+      Tytuł jest wymagany
+    </mat-error>
+  </mat-form-field>
+
+  <mat-label>Select file to upload</mat-label>
+  <input type="file" accept="image/*" #fileUploader formControlName="imageUrl"
+    (change)="showPreview($event)">
+  <div class="text-center" *ngIf="imgSrc">
+    <img [src]="imgSrc" width="350px" height="250px"
+      (click)="fileUploader.click()">
+  </div>
+  <!-- <button mat-flat-button color="accent" type="button" (click)="uploadImage()">
+    Upload
+  </button> -->
+
+  <mat-form-field appearance="outline">
+    <mat-label>Kategoria</mat-label>
+    <mat-select formControlName="category">
+      <mat-option *ngFor="let category of categories$ | async"
+        value="{{category.name}}">
+        {{ category.name | titlecase }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="text-field">
+    <mat-label>Textarea</mat-label>
+    <textarea matInput formControlName="text"></textarea>
+  </mat-form-field>
+
+  <button mat-flat-button color="accent" type="submit">Dodaj przepis</button>
+</form>

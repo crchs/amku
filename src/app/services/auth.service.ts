@@ -13,12 +13,12 @@ export class AuthService {
   }
 
   login(email: string, password: string): any {
-    return this.firebaseAuth
+    try {
+      return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
-        return err;
-      });
+    } catch (e) {
+      throw e
+    }
   }
 
   logout() {

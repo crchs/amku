@@ -27,7 +27,6 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AddRecipeComponent } from './components/admin-dashboard/add-recipe/add-recipe.component';
-import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { AdminLogoutComponent } from './components/admin-dashboard/admin-logout/admin-logout.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
@@ -38,7 +37,8 @@ import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
-import { provideStorage,getStorage } from '@angular/fire/storage';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { NotAuthorizedComponent } from './components/common/not-authorized/not-authorized.component';
 
 @NgModule({
   declarations: [
@@ -73,15 +73,10 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
-    provideMessaging(() => getMessaging()),
-    providePerformance(() => getPerformance()),
-    provideRemoteConfig(() => getRemoteConfig()),
-    provideStorage(() => getStorage())
+    AngularFireStorageModule
   ],
   providers: [
     // ScreenTrackingService, UserTrackingService

@@ -16,12 +16,15 @@
     <div>
       <mat-form-field appearance="outline" color="primary">
         <mat-label>Hasło</mat-label>
-        <input matInput formControlName="password">
+        <input matInput type="password" formControlName="password">
         <mat-error *ngIf="loginForm.get('password')?.errors?.required">
           Hasło jest wymagane
         </mat-error>
       </mat-form-field>
     </div>
+    <mat-error *ngIf="serviceError" class="margin-bottom--small">
+      {{ serviceError }}
+    </mat-error>
     <button mat-flat-button color="accent" type="submit" [disabled]="!loginForm.valid">Zaloguj się</button>
   </form>
 </div>
