@@ -6,6 +6,7 @@ export const environment = {
     apiKey: 'AIzaSyAiuzhhqm5g34-HIyjh7_e2d0ya4KQL15s',
     authDomain: 'amku-77b5b.firebaseapp.com',
     messagingSenderId: '383027515965',
+    databaseURL: 'https://amku-77b5b-default-rtdb.europe-west1.firebasedatabase.app'
   },
   production: true
 };
