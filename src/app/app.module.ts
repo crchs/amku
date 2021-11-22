@@ -28,17 +28,16 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AddRecipeComponent } from './components/admin-dashboard/add-recipe/add-recipe.component';
 import { AdminLogoutComponent } from './components/admin-dashboard/admin-logout/admin-logout.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { provideFunctions,getFunctions } from '@angular/fire/functions';
-import { provideMessaging,getMessaging } from '@angular/fire/messaging';
-import { providePerformance,getPerformance } from '@angular/fire/performance';
-import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { NotAuthorizedComponent } from './components/common/not-authorized/not-authorized.component';
+import { AddRecipeIngredientsComponent } from './components/admin-dashboard/add-recipe/add-recipe-ingredients/add-recipe-ingredients.component';
+import { MatListModule } from '@angular/material/list';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -52,7 +51,8 @@ import { NotAuthorizedComponent } from './components/common/not-authorized/not-a
     AdminLoginComponent,
     AddRecipeComponent,
     NotAuthorizedComponent,
-    AdminLogoutComponent
+    AdminLogoutComponent,
+    AddRecipeIngredientsComponent
   ],
   imports: [
     BrowserModule,
@@ -65,13 +65,16 @@ import { NotAuthorizedComponent } from './components/common/not-authorized/not-a
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
+    MatDividerModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatListModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
@@ -79,9 +82,6 @@ import { NotAuthorizedComponent } from './components/common/not-authorized/not-a
     AngularFireStorageModule
   ],
   providers: [
-    // ScreenTrackingService, UserTrackingService
-  
-    ScreenTrackingService,UserTrackingService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

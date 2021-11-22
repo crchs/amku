@@ -1,0 +1,9 @@
+.ingredients-fields__container {
+  max-width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-form-field {
+  margin-right: 5px;
+}

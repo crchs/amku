@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Ingredient } from 'src/app/models/ingredient';
 
 @Component({
   selector: 'add-recipe',
@@ -13,13 +14,14 @@ export class AddRecipeComponent implements OnInit {
   categories$: Observable<any[]>;
   text: string = '';
   imgSrc: string = '';
+  imgError: boolean = false;
   selectedImage: any = null;
+  ingredients: Ingredient[] = [];
+  recipeAdded: boolean = false;
 
   recipeForm = new FormGroup({
     title: new FormControl('',
       [Validators.required]),
-    caption: new FormControl('', Validators.required),
-    imageUrl: new FormControl('', Validators.required),
     category: new FormControl('',
       [Validators.required]),
     text: new FormControl('',
@@ -40,20 +42,20 @@ export class AddRecipeComponent implements OnInit {
   }
 
   async addRecipe(): Promise<void> {
-    const categories = this.db.list('recipes');
-    await categories.push({
+    const recipes = this.db.list('recipes');
+    await recipes.push({
       title: this.recipeForm.value.title,
       category: this.recipeForm.value.category,
       text: this.recipeForm.value.text,
+      ingredients: this.ingredients,
     });
     await this.uploadImage();
+    this.formReset();
+    this.recipeAdded = true;
   }
 
-  private uploadImage(): void {
-    const filePath = this.recipeForm.value.title;
-    this.storage.upload(filePath, this.selectedImage).then(() => {
-      return true;
-    })
+  addIngredients(ingredients: Ingredient[]): void {
+    this.ingredients = ingredients;
   }
 
   showPreview(event: any) {
@@ -64,8 +66,25 @@ export class AddRecipeComponent implements OnInit {
       this.selectedImage = event.target.files[0];
     }
     else {
-      this.imgSrc = '/assets/img/image_placeholder.jpg';
+      this.imgSrc = '';
       this.selectedImage = null;
+      this.imgError = true;
     }
-  } 
+  }
+
+  private formReset() {
+    this.recipeForm.reset();
+
+    Object.keys(this.recipeForm.controls)
+      .forEach(key => {
+        this.recipeForm.get(key)?.setErrors(null);
+      });
+  }
+
+  private uploadImage(): void {
+    const filePath = this.recipeForm.value.title;
+    this.storage.upload(filePath, this.selectedImage).then(() => {
+      return true;
+    })
+  }
 }

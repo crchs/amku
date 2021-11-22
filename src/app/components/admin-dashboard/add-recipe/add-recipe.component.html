@@ -10,17 +10,6 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-label>Select file to upload</mat-label>
-  <input type="file" accept="image/*" #fileUploader formControlName="imageUrl"
-    (change)="showPreview($event)">
-  <div class="text-center" *ngIf="imgSrc">
-    <img [src]="imgSrc" width="350px" height="250px"
-      (click)="fileUploader.click()">
-  </div>
-  <!-- <button mat-flat-button color="accent" type="button" (click)="uploadImage()">
-    Upload
-  </button> -->
-
   <mat-form-field appearance="outline">
     <mat-label>Kategoria</mat-label>
     <mat-select formControlName="category">
@@ -29,12 +18,42 @@
         {{ category.name | titlecase }}
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="recipeForm.get('category')?.errors?.required">
+      Kategoria jest wymagana
+    </mat-error>
   </mat-form-field>
+
+  <mat-divider></mat-divider>
+
+  <div class="form-field">
+    <input title=" " type="file" accept="image/*" #fileUploader
+      formControlName="imageUrl" class="custom-file-input"
+      (change)="showPreview($event)">
+    <div class="text-center" *ngIf="selectedImage">
+      <img [src]="imgSrc" width="350px" height="250px"
+        (click)="fileUploader.click()">
+    </div>
+    <mat-error *ngIf="imgError" style="margin-top: 0.5rem">
+      Dodaj zdjęcie
+    </mat-error>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <add-recipe-ingredients (newIngredientEvent)="addIngredients($event)"
+    style="width:100%"></add-recipe-ingredients>
+
+  <mat-divider></mat-divider>
 
   <mat-form-field appearance="outline" class="text-field">
     <mat-label>Textarea</mat-label>
     <textarea matInput formControlName="text"></textarea>
   </mat-form-field>
 
-  <button mat-flat-button color="accent" type="submit">Dodaj przepis</button>
+  <span *ngIf="recipeAdded">Przepis dodany!</span>
+
+  <button mat-flat-button color="accent" type="submit"
+    [disabled]="!recipeForm.valid || (ingredients.length < 1) || !selectedImage">
+    Dodaj przepis
+  </button>
 </form>

@@ -1,0 +1,48 @@
+<form class="ingredients-fields__container" [formGroup]="ingredientsForm"
+  (ngSubmit)="addIngredient(ingredientsForm.value)">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Składnik</mat-label>
+    <input matInput formControlName="name">
+    <mat-error *ngIf="ingredientsForm.get('name')?.errors?.required">
+      Składnik jest wymagany
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Ile</mat-label>
+    <input matInput type="number" formControlName="amount">
+    <mat-error *ngIf="ingredientsForm.get('amount')?.errors?.required">
+      Ilość jest wymagana
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Jednostka</mat-label>
+    <mat-select formControlName="unit">
+      <mat-option *ngFor="let unit of units$ | async" value="{{unit.unit}}">
+        {{ unit.name | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="ingredientsForm.get('unit')?.errors?.required">
+      Jednostka jest wymagana
+    </mat-error>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button [disabled]="!ingredientsForm.valid" mat-flat-button color="accent" type="submit">Dodaj Składnik</button>
+  </div>
+</form>
+
+<mat-slide-toggle [(ngModel)]="showIngredients" *ngIf="ingredients.length > 0">
+  Pokaż wszystkie składniki
+</mat-slide-toggle>
+<mat-list *ngIf="showIngredients">
+  <mat-list-item *ngFor="let ingredient of ingredients">
+    {{ ingredient.name | titlecase }} - {{ ingredient.amount }} {{
+    ingredient.unit }}
+    <button type="button" mat-icon-button (click)="removeIngredient(ingredient)">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
